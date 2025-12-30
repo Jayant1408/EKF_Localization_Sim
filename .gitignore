@@ -1,21 +1,30 @@
+# =========================
 # Python
+# =========================
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
 .env
-.venv
+.venv/
 venv/
 EKF_Localization_Sim/
 
-# OS
-.DS_Store
-Thumbs.db
-
-# Plots / outputs
+# =========================
+# Outputs / generated data
+# =========================
+python/outputs/
+cpp/outputs/
+logs/
 *.png
 *.pdf
+*.csv
 
-# IDEs
+# =========================
+# OS / IDE
+# =========================
+.DS_Store
+Thumbs.db
 .vscode/
 .idea/
