@@ -37,8 +37,8 @@ def jacobian_F(x: np.ndarray, u: np.ndarray, dt: float) -> np.ndarray:
     px,py,yaw,v = x
     a,omega = u # unused but kept for symmetry
 
-    """
-    \(J=\left[\begin{matrix}\frac{\partial f_{1}}{\partial x_{1}}&\cdots &\frac{\partial f_{1}}{\partial x_{n}}\\ \vdots &\ddots &\vdots \\ \frac{\partial f_{n}}{\partial x_{1}}&\cdots &\frac{\partial f_{n}}{\partial x_{n}}\end{matrix}\right]\) 
+    r"""
+    \(J=\left[\begin{matrix}\frac{\partial f_{1}}{\partial x_{1}}&\cdots &\frac{\partial f_{1}}{\partial x_{n}}\\ \vdots &\ddots &\vdots \\ \frac{\partial f_{n}}{\partial x_{1}}&\cdots &\frac{\partial f_{n}}{\partial x_{n}}\end{matrix}\right]\) 
     """
     F = np.eye(4)
     F[0,2] = -v * np.sin(yaw) * dt

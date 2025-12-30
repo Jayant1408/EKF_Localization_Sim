@@ -1,7 +1,14 @@
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
+from pathlib import Path
 
-def plot_trajectory_with_ekf(t_arr, x_true_hist, x_est_hist, P_hist, gps_meas_hist):
+def plot_trajectory_with_ekf(t_arr, x_true_hist, x_est_hist, P_hist, gps_meas_hist, output_dir=None):
+    if output_dir is None:
+        output_dir = Path('.')
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
     plt.figure()
     plt.axis('equal')
     plt.grid(True)
@@ -29,7 +36,10 @@ def plot_trajectory_with_ekf(t_arr, x_true_hist, x_est_hist, P_hist, gps_meas_hi
     plt.title("EKF Localization: True vs Estimated Trajectory")
     plt.legend()
     plt.tight_layout()
-    plt.show()
+    output_path = output_dir / 'trajectory_plot.png'
+    plt.savefig(output_path, dpi=150)
+    print(f"Saved trajectory plot to {output_path}")
+    plt.close()
 
 
 def plot_cov_ellipse(mean_xy, cov_xy, n_points = 40, conf = 0.95):

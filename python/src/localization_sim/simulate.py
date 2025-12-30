@@ -1,8 +1,8 @@
 import numpy as np
 
-import config
-from models import motion_model, generate_reference_control
-from config import (
+from . import config
+from .models import motion_model, generate_reference_control
+from .config import (
     DT,
     T_END,
     GPS_DT,
@@ -61,8 +61,7 @@ def simulate_truth_and_sensors():
                     px_true + np.random.randn() * GPS_NOISE_STD,
                     py_true + np.random.randn() * GPS_NOISE_STD,
                 ])
-
-            gps_meas_hist.append((t, z))
+                gps_meas_hist.append((t, z))
             next_gps_time += GPS_DT
 
     return t_arr, x_true_hist, imu_meas_hist, gps_meas_hist

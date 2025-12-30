@@ -1,16 +1,29 @@
 # run_sim.py
 
+import sys
+from pathlib import Path
+
+# Add the src directory to the Python path
+src_path = Path(__file__).parent.parent
+sys.path.insert(0, str(src_path))
+
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
 
-from config import DT, Q_diag, R_diag
-from ekf import EKFLocalization
-from simulate import simulate_truth_and_sensors
-from utils_vis import plot_trajectory_with_ekf
-from metrics import rmse_position, rmse_yaw, rmse_speed
+from localization_sim.config import DT, Q_diag, R_diag
+from localization_sim.ekf import EKFLocalization
+from localization_sim.simulate import simulate_truth_and_sensors
+from localization_sim.utils_vis import plot_trajectory_with_ekf
+from localization_sim.metrics import rmse_position, rmse_yaw, rmse_speed
 
 
-def plot_error_time_series(t_arr, pos_err, yaw_err, v_err):
+def plot_error_time_series(t_arr, pos_err, yaw_err, v_err, output_dir=None):
+    if output_dir is None:
+        output_dir = Path(__file__).parent.parent.parent / 'outputs'
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
     plt.figure()
     plt.grid(True)
     plt.plot(t_arr, pos_err)
@@ -18,7 +31,10 @@ def plot_error_time_series(t_arr, pos_err, yaw_err, v_err):
     plt.ylabel('Position Error [m]')
     plt.title('Position Error Time Series')
     plt.tight_layout()
-    plt.show()
+    output_path = output_dir / 'position_error.png'
+    plt.savefig(output_path, dpi=150)
+    print(f"Saved position error plot to {output_path}")
+    plt.close()
 
     plt.figure()
     plt.grid(True)
@@ -27,8 +43,10 @@ def plot_error_time_series(t_arr, pos_err, yaw_err, v_err):
     plt.ylabel('Yaw Error [rad]')
     plt.title('Yaw Error Time Series')
     plt.tight_layout()
-    plt.show()
-
+    output_path = output_dir / 'yaw_error.png'
+    plt.savefig(output_path, dpi=150)
+    print(f"Saved yaw error plot to {output_path}")
+    plt.close()
 
     plt.figure()
     plt.grid(True)
@@ -37,8 +55,10 @@ def plot_error_time_series(t_arr, pos_err, yaw_err, v_err):
     plt.ylabel('Speed Error [m/s]')
     plt.title('Speed Error Time Series')
     plt.tight_layout()
-    plt.show()
-    plt.close('all')
+    output_path = output_dir / 'speed_error.png'
+    plt.savefig(output_path, dpi=150)
+    print(f"Saved speed error plot to {output_path}")
+    plt.close()
 
 def main():
     # Simulate ground truth + sensors
@@ -91,10 +111,14 @@ def main():
     print(f"Yaw RMSE SS:      {yaw_rmse_ss:.4f} rad ({yaw_rmse_ss * 180.0/np.pi:.2f} deg)")
     print(f"Speed RMSE SS:    {v_rmse_ss:.3f} m/s")
 
+    # Set output directory
+    output_dir = Path(__file__).parent.parent.parent / 'outputs'
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
     # Plot results
-    plot_trajectory_with_ekf(t_arr, x_true_hist, x_est_hist, P_hist, gps_meas_hist)
+    plot_trajectory_with_ekf(t_arr, x_true_hist, x_est_hist, P_hist, gps_meas_hist, output_dir)
 
-    plot_error_time_series(t_arr, pos_err, yaw_err, v_err)
+    plot_error_time_series(t_arr, pos_err, yaw_err, v_err, output_dir)
 
 if __name__ == "__main__":
     main()

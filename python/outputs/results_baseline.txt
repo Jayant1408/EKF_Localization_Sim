@@ -1,0 +1,30 @@
+(EKF_Localization_Sim) jayant@LAPTOP-S413KMO1:~/EKF_Localization_Sim$ python run_sim.py      
+/home/jayant/EKF_Localization_Sim/models.py:40: SyntaxWarning: invalid escape sequence '\('
+  """
+=== EKF Metrics ===
+Position RMSE  (||e_xy||): 1.688 m
+Yaw RMSE        (e_yaw): 0.4408 rad (25.25 deg)
+Speed RMSE      (e_v): 1.579 m/s
+---- Steady-state (last 50%) ----
+Position RMSE SS: 1.822 m
+Yaw RMSE SS:      0.5391 rad (30.89 deg)
+Speed RMSE SS:    1.709 m/s
+/home/jayant/EKF_Localization_Sim/utils_vis.py:32: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/home/jayant/EKF_Localization_Sim/run_sim.py:30: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/home/jayant/EKF_Localization_Sim/run_sim.py:40: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+(EKF_Localization_Sim) jayant@LAPTOP-S413KMO1:~/EKF_Localization_Sim$ python run_sim.py 
+=== EKF Metrics ===
+Position RMSE  (||e_xy||): 1.688 m
+Yaw RMSE        (e_yaw): 0.4408 rad (25.25 deg)
+Speed RMSE      (e_v): 1.579 m/s
+---- Steady-state (last 50%) ----
+Position RMSE SS: 1.822 m
+Yaw RMSE SS:      0.5391 rad (30.89 deg)
+Speed RMSE SS:    1.709 m/s
+Saved trajectory plot to trajectory_plot.png
+Saved position error plot to position_error.png
+Saved yaw error plot to yaw_error.png
+Saved speed error plot to speed_error.png

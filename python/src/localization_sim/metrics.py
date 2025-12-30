@@ -13,7 +13,7 @@ def rmse(a : np.ndarray, b : np.ndarray) -> float:
     """
 
     err = a - b
-    return float(np.sqrt(np.mean(e * e)))
+    return float(np.sqrt(np.mean(err * err)))
 
 def rmse_position(true_states: np.ndarray, estimated_states: np.ndarray) -> tuple[float, np.ndarray]:
     """
